@@ -1,38 +1,54 @@
 <html>
-<head>
-<meta charset="utf-8">
-<title>Carte collaborative Merci Max</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
-</head>
-<body>
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
-<style>
-    #marker {
-    background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    }
-     
-    .mapboxgl-popup {
-    max-width: 200px;
-    }
+<head>
+    <meta charset="utf-8">
+    <title>Carte collaborative Merci Max</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+
+    <style>
+        #marker {
+            background-image: url('https://docs.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .mapboxgl-popup {
+            max-width: 200px;
+        }
+
     </style>
 
-<div id='map'></div>
+    <div id='map'></div>
 
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoiY3NtYXhtYXIiLCJhIjoiY2wxa29rdzAxMDI0YjNkbzIwbnBuMTM5cSJ9.M3oJl_-BpsaC4_ly5O6rHw';
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiY3NtYXhtYXIiLCJhIjoiY2wxa29rdzAxMDI0YjNkbzIwbnBuMTM5cSJ9.M3oJl_-BpsaC4_ly5O6rHw';
         const monument = [-77.0353, 38.8895]
         const map = new mapboxgl.Map({
             container: 'map', // container ID
@@ -55,121 +71,122 @@ body { margin: 0; padding: 0; }
         map.addControl(new mapboxgl.FullscreenControl());
 
         const size = 200;
- 
-// This implements `StyleImageInterface`
-// to draw a pulsing dot icon on the map.
-const pulsingDot = {
-width: size,
-height: size,
-data: new Uint8Array(size * size * 4),
- 
-// When the layer is added to the map,
-// get the rendering context for the map canvas.
-onAdd: function () {
-const canvas = document.createElement('canvas');
-canvas.width = this.width;
-canvas.height = this.height;
-this.context = canvas.getContext('2d');
-},
- 
-// Call once before every frame where the icon will be used.
-render: function () {
-const duration = 1000;
-const t = (performance.now() % duration) / duration;
- 
-const radius = (size / 2) * 0.3;
-const outerRadius = (size / 2) * 0.7 * t + radius;
-const context = this.context;
- 
-// Draw the outer circle.
-context.clearRect(0, 0, this.width, this.height);
-context.beginPath();
-context.arc(
-this.width / 2,
-this.height / 2,
-outerRadius,
-0,
-Math.PI * 2
-);
-context.fillStyle = `rgba(255, 200, 200, ${1 - t})`;
-context.fill();
- 
-// Draw the inner circle.
-context.beginPath();
-context.arc(
-this.width / 2,
-this.height / 2,
-radius,
-0,
-Math.PI * 2
-);
-context.fillStyle = 'rgba(255, 100, 100, 1)';
-context.strokeStyle = 'white';
-context.lineWidth = 2 + 4 * (1 - t);
-context.fill();
-context.stroke();
- 
-// Update this image's data with data from the canvas.
-this.data = context.getImageData(
-0,
-0,
-this.width,
-this.height
-).data;
- 
-// Continuously repaint the map, resulting
-// in the smooth animation of the dot.
-map.triggerRepaint();
- 
-// Return `true` to let the map know that the image was updated.
-return true;
-}
-};
- 
-map.on('load', () => {
-map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
- 
-map.addSource('dot-point', {
-'type': 'geojson',
-'data': {
-'type': 'FeatureCollection',
-'features': [
-{
-'type': 'Feature',
-'geometry': {
-'type': 'Point',
-'coordinates': [2.163919, 48.7085753] // icon position [lng, lat]
-}
-}
-]
-}
-});
-map.addLayer({
-'id': 'layer-with-pulsing-dot',
-'type': 'symbol',
-'source': 'dot-point',
-'layout': {
-'icon-image': 'pulsing-dot'
-}
-});
-});
 
-// create the popup
-const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-'Construction on the Washington Monument began in 1848.'
-);
- 
-// create DOM element for the marker
-const el = document.createElement('div');
-el.id = 'marker';
- 
-// create the marker
-new mapboxgl.Marker(el)
-.setLngLat(monument)
-.setPopup(popup) // sets a popup on this marker
-.addTo(map);
+        // This implements `StyleImageInterface`
+        // to draw a pulsing dot icon on the map.
+        const pulsingDot = {
+            width: size,
+            height: size,
+            data: new Uint8Array(size * size * 4),
 
-</script>
- 
+            // When the layer is added to the map,
+            // get the rendering context for the map canvas.
+            onAdd: function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = this.width;
+                canvas.height = this.height;
+                this.context = canvas.getContext('2d');
+            },
+
+            // Call once before every frame where the icon will be used.
+            render: function () {
+                const duration = 1000;
+                const t = (performance.now() % duration) / duration;
+
+                const radius = (size / 2) * 0.3;
+                const outerRadius = (size / 2) * 0.7 * t + radius;
+                const context = this.context;
+
+                // Draw the outer circle.
+                context.clearRect(0, 0, this.width, this.height);
+                context.beginPath();
+                context.arc(
+                    this.width / 2,
+                    this.height / 2,
+                    outerRadius,
+                    0,
+                    Math.PI * 2
+                );
+                context.fillStyle = `rgba(255, 200, 200, ${1 - t})`;
+                context.fill();
+
+                // Draw the inner circle.
+                context.beginPath();
+                context.arc(
+                    this.width / 2,
+                    this.height / 2,
+                    radius,
+                    0,
+                    Math.PI * 2
+                );
+                context.fillStyle = 'rgba(255, 100, 100, 1)';
+                context.strokeStyle = 'white';
+                context.lineWidth = 2 + 4 * (1 - t);
+                context.fill();
+                context.stroke();
+
+                // Update this image's data with data from the canvas.
+                this.data = context.getImageData(
+                    0,
+                    0,
+                    this.width,
+                    this.height
+                ).data;
+
+                // Continuously repaint the map, resulting
+                // in the smooth animation of the dot.
+                map.triggerRepaint();
+
+                // Return `true` to let the map know that the image was updated.
+                return true;
+            }
+        };
+
+        map.on('load', () => {
+            map.addImage('pulsing-dot', pulsingDot, { pixelRatio: 2 });
+
+            map.addSource('dot-point', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [2.163919, 48.7085753] // icon position [lng, lat]
+                            }
+                        }
+                    ]
+                }
+            });
+            map.addLayer({
+                'id': 'layer-with-pulsing-dot',
+                'type': 'symbol',
+                'source': 'dot-point',
+                'layout': {
+                    'icon-image': 'pulsing-dot'
+                }
+            });
+        });
+
+        // create the popup
+        const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+            'Construction on the Washington Monument began in 1848.'
+        );
+
+        // create DOM element for the marker
+        const el = document.createElement('div');
+        el.id = 'marker';
+
+        // create the marker
+        new mapboxgl.Marker(el)
+            .setLngLat(monument)
+            .setPopup(popup) // sets a popup on this marker
+            .addTo(map);
+
+    </script>
+
 </body>
+
 </html>
