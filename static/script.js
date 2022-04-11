@@ -2,7 +2,7 @@
 
 // ------------------------------Permet d'afficher la carte, en précisant la position de départ---------------------------------------
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY3NtYXhtYXIiLCJhIjoiY2wxa29rdzAxMDI0YjNkbzIwbnBuMTM5cSJ9.M3oJl_-BpsaC4_ly5O6rHw';
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFlbGtvIiwiYSI6ImNsMWtwZjI1bDAyYWozY28ycTkzMjg3bm4ifQ.8Jke-drPL92cg6fWZSKUkQ';
 const monument = [-77.0353, 38.8895]
 const map = new mapboxgl.Map({
     container: 'map', // container ID
@@ -123,3 +123,8 @@ map.addControl(
         mapboxgl: mapboxgl
     })
 );
+
+// Create a default Marker, colored black, rotated 0 degrees.
+const marker2 = new mapboxgl.Marker({ color: 'black', rotation: 0 })
+    .setLngLat([2.13, 48.8])
+    .addTo(map);
