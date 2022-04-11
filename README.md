@@ -5,6 +5,8 @@ Le projet consiste en la mise en place d'une plateforme web qui référence les 
 L'interface web sera fait en HTML, CSS et javascript, et utilisera Mapbox (surcouche d'OpenStreetMap) pour l'affichage de la carte.
 Le serveur back utilisera, lui, le framework python Flask.
 
+Une maquette de la plateforme web est disponible ici : https://xd.adobe.com/view/b0079d9c-c046-467c-8de5-469f5fb330c8-e554/.
+
 
 ## Getting started
 
