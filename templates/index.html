@@ -1,29 +1,30 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
-
-    </style>
 
 </head>
 
 <body>
+    <h1>MAP</h1>
+    <div>
+        <input class="barrerecherche" type=" text " name=" recherche " placeholder=" Cherchez un acteur " />
+    </div>
+    <div>
+        <button class="btn">Ajouter un acteur</button>
+    </div>
+
     <!-- Load the `mapbox-gl-geocoder` plugin. -->
     <script
         src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
@@ -31,9 +32,7 @@
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
         type="text/css">
 
-    <h1>Hello {{ username }}</h1>
-
-    <div id='map' style='width: 800px; height: 600px;'></div>
+    <div id='map'></div>
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoibWFlbGtvIiwiYSI6ImNsMWtwZjI1bDAyYWozY28ycTkzMjg3bm4ifQ.8Jke-drPL92cg6fWZSKUkQ';
@@ -44,7 +43,7 @@
             zoom: 12 // starting zoom
         });
 
-        // Create a default Marker, colored black, rotated 45 degrees.
+        // Create a default Marker, colored black, rotated 0 degrees.
         const marker2 = new mapboxgl.Marker({ color: 'black', rotation: 0 })
             .setLngLat([2.13, 48.8])
             .addTo(map);
@@ -57,7 +56,7 @@
             })
         );
     </script>
-
+    <script src="/static/script.js"></script>
 </body>
 
 </html>
