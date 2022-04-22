@@ -68,7 +68,7 @@ def index():
     data = {"type":"FeatureCollection","features":features}
 
     # On lui donne les icones à charger en plus dans mapbox
-    image_names = os.listdir(dir_path + '/static/')
+    image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
 
     return render_template('index.html',data = data,icons = image_names)
@@ -79,8 +79,8 @@ def icon_display(icon):
     # dir_path est le chemin qui mène au dossier parent, quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
      
-    if os.path.exists(dir_path + '/static/' + icon):
-        return send_file(dir_path + '/static/' + icon)
+    if os.path.exists(dir_path + '/icon_folder/' + icon):
+        return send_file(dir_path + '/icon_folder/' + icon)
 
 
 
