@@ -27,6 +27,15 @@
     background-color: var(--white);
 }
 
+#formulaire {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    height: 30px;
+    width: 175px;
+    background-color: var(--white);
+}
+
 #map {
     position: absolute;
     top: 100px;
