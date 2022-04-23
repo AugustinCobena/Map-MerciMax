@@ -1,0 +1,36 @@
+:root {
+    --green: #00FF00;
+    --white: #ffffff;
+    --black: #000000;
+}
+
+* {
+    color: var(--black);
+    font-family: helvetica;
+}
+
+.searchbar {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    height: 30px;
+    width: 175px;
+    background-color: var(--white);
+}
+
+.btn {
+    position: absolute;
+    top: 20px;
+    right: 250px;
+    height: 40px;
+    width: 175px;
+    background-color: var(--white);
+}
+
+#map {
+    position: absolute;
+    top: 100px;
+    left: 25%;
+    height: 600px;
+    width: 800px;
+}

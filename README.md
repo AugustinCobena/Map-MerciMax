@@ -1,7 +1,12 @@
 # MerciMax
 
-Le projet consiste en la mise en place d'une plateforme web qui référence les actions sociales, solidaires ou environnementales sur une carte.
-Utilisation d'OSM (OpenStreetMap) pour la carte, de Flask pour le back, et de HTML, CSS, JS pour le front.
+Le projet consiste en la mise en place d'une plateforme web qui référence les actions sociales, solidaires ou environnementales sur une carte collaborative.
+
+L'interface web sera fait en HTML, CSS et javascript, et utilisera Mapbox (surcouche d'OpenStreetMap) pour l'affichage de la carte.
+Le serveur back utilisera, lui, le framework python Flask.
+
+Une maquette de la plateforme web est disponible ici : https://xd.adobe.com/view/b0079d9c-c046-467c-8de5-469f5fb330c8-e554/.
+
 
 ## Getting started
 
