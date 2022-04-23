@@ -33,7 +33,12 @@
 
     <div id='map'></div>
 
-    <script src="/static/script.js"></script>
+    <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
+    il envoie ensuite la page modifiée avec les bonnes variables, qui dépendent donc des arguments d'entrée, au client.-->
+
+    <script type="text/javascript"
+    src="/scripts/js/map_display.js" img='{{icons|tojson}}' data='{{data|tojson}}'></script>
+
 </body>
 
 </html>
