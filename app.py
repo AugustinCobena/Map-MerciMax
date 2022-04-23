@@ -16,7 +16,7 @@ import json
 import sqlite3 as sql
 from flask import Flask
 from flask import render_template
-from flask import send_file
+from flask import send_file,send_from_directory
 
 app = Flask(__name__)
 
@@ -67,11 +67,12 @@ def index():
         features.append(feature)
     data = {"type":"FeatureCollection","features":features}
 
-    # On lui donne les icones à charger en plus dans mapbox
+    # On lui donne les icones à charger en plus dans mapbox (les images que l'on veut pouvoir utiliser ensuite pour l'affichage)
     image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
 
     return render_template('index.html',data = data,icons = image_names)
+
 
 
 @app.route('/icons/<icon>')
@@ -84,18 +85,20 @@ def icon_display(icon):
 
 
 
+@app.route('/scripts/js/<script>')
+def render_script(script):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    return send_file(dir_path + '/static/js/' + script)
 
-@app.route('/planb')
-def planb():
-    name = 'Minimum'
-    return render_template('index.html', title='Welcome', username=name)
 
-@app.route('/api')
-def api():
-    return json.dumps({'name': 'alice',
-                       'email': 'alice@outlook.com'})
-    
-    
+
+@app.route('/favicon.ico')
+def send_icon():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    return send_file(dir_path + '/marx.ico')
+
+
+
 if __name__ == "__main__":
     port = 5000
     app.run(debug=True, host='127.0.0.1', port=port)

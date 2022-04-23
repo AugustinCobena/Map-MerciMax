@@ -1,4 +1,9 @@
+// Il faut déclarer cette variable en début de script car dès qu'on appelle un autre script (à travers les fonctions mapbox par exemple),
+// document.currentScript prend la valeur Null
+var thisScript = document.currentScript;
+
 // ------------------------------Permet d'afficher la carte, en précisant la position de départ---------------------------------------
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3NtYXhtYXIiLCJhIjoiY2wxa29rdzAxMDI0YjNkbzIwbnBuMTM5cSJ9.M3oJl_-BpsaC4_ly5O6rHw';
 const monument = [-77.0353, 38.8895]
@@ -14,22 +19,24 @@ const map = new mapboxgl.Map({
 });
 
 //-------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 
 //-------------------Permet de rajouter des points sur la carte qui affichent une description quand on clique dessus-------------------
 
 
 
 map.on('load', () => {
-    // cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
-    // il envoie ensuite la page modifiée avec les bonnes variables, qui dépendent donc des arguments d'entrée, au client.
-    var images = {{icons|tojson}};
+    // thisScript.getAttribute('img') va chercher le string passé en paramètre à travers img='paramètre' lors de l'appel du fichier javascript par la page html
+    // JSON.parse() prend en argument un string et renvoie un objet javascript. Exemple: JSON.parse("['item1','item2']") -> ['item1','item2'] (le résultat est un tableau plus un string)
+    var images = JSON.parse(thisScript.getAttribute('img'));
+    console.log(images);
 
     // On dit au client d'aller chercher toutes les icones possibles pour les intégrer aux icones affichables par mapbox (boucle sur les url des images)
     for (var i = 0; i < images.length; i++){
 
         //  url_image est l'url de notre serveur où est stockée l'image que l'on traite dans cette itération
         var url_image = images[i];
+        console.log(url_image)
         map.loadImage(
             url_image,
             (error, image) => {
@@ -43,12 +50,11 @@ map.on('load', () => {
     
     map.addSource('places', {
 
-        // {{ data|tojson }} signifie qu'il va aller chercher la variable data dans les arguments données en entrée lors de l'appel render_template
-        // 'data' est un type de variable équivalent à un dictionnaire python; la variable d'entrée est un dictionnaire python de la bonne forme, et flask le convertit en javascript
+        // JSON.parse(thisScript.getAttribute('data')) -> voir le commentaire ligne 29/30 pour l'explication
         'type': 'geojson',
-        'data': {{ data|tojson }}
+        'data': JSON.parse(thisScript.getAttribute('data'))
     });
-
+    console.log(thisScript.getAttribute('data'));
     
     // Ici, on ajoute une couche sur openstreet map qui affiche, en plus de la carte déjà existante, les icones sont listées dans la data de 'places'
     map.addLayer({
