@@ -15,15 +15,14 @@ import os
 import json
 import sqlite3 as sql
 from flask import Flask
-from flask import render_template
-from flask import send_file,send_from_directory
+from flask import send_file,request,render_template
 
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods = ['GET','POST'])
 def index():
-
+    
     # On définit le path pour qu'il mène à la db située dans le même dossier que ce fichier quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
     con = sql.connect(dir_path + '/mercimax.db')
@@ -39,6 +38,33 @@ def index():
     con.row_factory = dict_factory
     #-------------------
     cur = con.cursor()
+
+    if request.method == 'POST':
+        # On va chercher les données du formulaire qui a été envoyé par la requête POST
+        markerTitle = request.form.get("markerTitle")
+        markerDescription = request.form.get("markerDescription")
+        markerLongitude = request.form.get("markerLongitude")
+        markerLatitude = request.form.get("markerLatitude")
+
+        # On insère les données dans la base de donnée par une requête SQL
+        cur.execute(
+        '''INSERT INTO "markers" (
+            "description",
+            "icon",
+            "longitude",
+            "latitude",
+            "zone"
+        )
+        VALUES("
+        ''' + markerDescription + '", "beehive-1","' + markerLongitude + '","' + markerLatitude + '", "1")')
+
+        # On confirme la modification de la base de donnée
+
+        # /!\ Si on enlève cette étape, les données seront quand même affichées sur la carte pour cet affichage web uniquement
+        # Les modifications seront annulées lorsqu'on se déconnecte de la base de données seulement (c'est à dire à la fin de cette fonction)
+        # Enlever la ligne suivante peut donc être un bon moyen de faire des tests sans modifier la base de données
+        con.commit()
+
 
     cur.execute("select * from markers;")
 
@@ -85,19 +111,24 @@ def icon_display(icon):
 
 
 
-@app.route('/scripts/js/<script>')
-def render_script(script):
+@app.route('/js/<script>')
+def send_script(script):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/static/js/' + script)
 
-
+@app.route('/css/<file>')
+def send_css(file):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    return send_file(dir_path + '/static/css/' + file)
 
 @app.route('/favicon.ico')
 def send_icon():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/marx.ico')
 
-
+@app.route('/test_page')
+def test_function():
+    return render_template('test_html.html')
 
 if __name__ == "__main__":
     port = 5000
