@@ -12,10 +12,10 @@ http://127.0.0.1:5000/
 @author: CHRISTIAN
 """
 import os
-import json
 import sqlite3 as sql
 from flask import Flask
-from flask import send_file,request,render_template
+from flask import request
+from flask import send_file,render_template
 
 app = Flask(__name__)
 
@@ -55,14 +55,14 @@ def index():
             "latitude",
             "zone"
         )
-        VALUES("
-        ''' + markerDescription + '", "beehive-1","' + markerLongitude + '","' + markerLatitude + '", "1")')
+        VALUES("<strong>
+        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "beehive-1","' + markerLongitude + '","' + markerLatitude + '", 1)')
 
         # On confirme la modification de la base de donnée
 
         # /!\ Si on enlève cette étape, les données seront quand même affichées sur la carte pour cet affichage web uniquement
         # Les modifications seront annulées lorsqu'on se déconnecte de la base de données seulement (c'est à dire à la fin de cette fonction)
-        # Enlever la ligne suivante peut donc être un bon moyen de faire des tests sans modifier la base de données
+        # Enlever la ligne suivante peut donc être un bon moyen de faire des tests d'affichage sans modifier la base de données
         con.commit()
 
 
