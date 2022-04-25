@@ -9,57 +9,77 @@
     font-family: helvetica;
 }
 
-.searchbar {
-    float : left;
-    height: 30px;
-    width: 175px;
-    background-color: var(--white);
-}
-
-.btn {
+#titleDiv {
     position: absolute;
-    top: 20px;
-    right: 250px;
-    height: 40px;
-    width: 175px;
-    background-color: var(--white);
+    margin: 0 auto;
+    border: 1px solid rgb(0, 0, 0);
+    top: 2px;
+    bottom: 87%;
+    left: 2px;
+    right: 25%;
 }
 
-.container {
-    margin : 0 auto;
-    width : 1500px;
-    height : 100%;
-}
-
-#centerText{
-    height: 100px;
-    width: 100%;
+#title {
+    position: relative;
+    line-height: normal;
     text-align: center;
 }
 
-#globalDiv {
+#addactorDiv {
     position: absolute;
-    margin : 0 auto;
-    width : 100%;
-    height : 100%;
-    z-index : 2;
+    border: 1px solid rgb(0, 0, 0);
+    top: 2px;
+    bottom: 87%;
+    left: 75%;
+    right: 2px;
+}
+
+.btn {
+    position: relative;
+    border: 2px solid rgb(0, 0, 0);
+    top: 5%;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+    background-color: var(--white);
+}
+
+#searchDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 13%;
+    bottom: 2px;
+    left: 2px;
+    right: 75%;
+}
+
+#searchbar {
+    position: relative;
+    border: 1px solid rgb(0, 0, 0);
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    background-color: var(--white);
 }
 
 #map {
     position: absolute;
-    top: 100px;
+    border: 1px solid rgb(0, 0, 0);
+    top: 13%;
+    bottom: 2px;
     left: 25%;
-    height: 600px;
-    width: 800px;
+    right: 2px;
     z-index: 1;
 }
 
 #globalFormDiv {
     position: absolute;
-    margin: 0 auto;
-    width: 400px;
-    height: 400px;
-    background-color: #ccc;
-    display: block;
+    border: 1px solid rgb(0, 0, 0);
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    height: 50%;
+    background-color: rgba(253, 232, 232, 0.905);
+    display: none;
     z-index: 2;
 }

@@ -23,21 +23,29 @@
 </head>
 
 <body>
-    <div class = "container">
-        <h1 id = "centerText">MAP</h1>
-        <input class="searchbar" type=" text " name=" recherche " placeholder=" Cherchez un acteur " />
-        <div>
-            <script src="/js/actionFunctions.js"></script>
-            <button class="btn" onclick="toggleForm();">
-                Ajouter un acteur
-            </button>
-        </div>
+    <div id="titleDiv">
+        <h1 id="title">Les initiatives sociales et solidaires</h1>
+    </div>
 
-        <div style="display : none;" id="globalFormDiv">
+    <div id="addactorDiv">
+        <script src="/js/actionFunctions.js"></script>
+        <button class="btn" onclick="toggleForm();">
+            <h1 id="addactorText">Ajouter un acteur</h1>
+        </button>
+    </div>
+
+    <div id="searchDiv">
+        <input id="searchbar" type="text" name="recherche" placeholder="Cherchez un acteur" />
+    </div>
+
+    <div id="map">
+        <div id="globalFormDiv">
+            <strong>Ajouter un acteur</strong>
             <form action="/index" method="post">
+                <div>Informations</div>
                 <div>
                     <label for="title">Titre de la fiche:</label>
-                    <input type="text" id="title" name="markerTitle">
+                    <input type="text" id="title" name="markerTitle" placeholder="Titre de la fiche">
                 </div>
                 <div>
                     <label for="description">Description :</label>
@@ -60,15 +68,12 @@
                 </div>
             </form>
         </div>
-    
-        <div id='map'></div>
+    </div>
 
-        <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
+    <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
         il envoie ensuite la page modifiée avec les bonnes variables, qui dépendent donc des arguments d'entrée, au client.-->
 
-        <script type="text/javascript"
-        src="/js/mapDisplay.js" img='{{icons|tojson}}' data='{{data|tojson}}'></script>
-    </div>
+    <script type="text/javascript" src="/js/mapDisplay.js" img='{{icons|tojson}}' data='{{data|tojson}}'></script>
 </body>
 
 </html>
