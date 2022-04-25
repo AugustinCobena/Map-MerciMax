@@ -45,6 +45,7 @@ def index():
         markerDescription = request.form.get("markerDescription")
         markerLongitude = request.form.get("markerLongitude")
         markerLatitude = request.form.get("markerLatitude")
+        markerIcon = request.form.get("markerIcon")
 
         # On insère les données dans la base de donnée par une requête SQL
         cur.execute(
@@ -56,7 +57,7 @@ def index():
             "zone"
         )
         VALUES("<strong>
-        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "beehive-1","' + markerLongitude + '","' + markerLatitude + '", 1)')
+        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "' + markerIcon + '","' + markerLongitude + '","' + markerLatitude + '", 1)')
 
         # On confirme la modification de la base de donnée
 
