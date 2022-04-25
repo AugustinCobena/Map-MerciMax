@@ -31,31 +31,24 @@ map.on('load', () => {
     var images = JSON.parse(thisScript.getAttribute('img'));
     console.log(images);
 
-    // On dit au client d'aller chercher toutes les icones possibles pour les intégrer aux icones affichables par mapbox (boucle sur les url des images)
-    for (var i = 0; i < images.length; i++){
 
-        //  url_image est l'url de notre serveur où est stockée l'image que l'on traite dans cette itération
-        var url_image = images[i];
-        console.log(url_image)
-        map.loadImage(
-            url_image,
-            (error, image) => {
-                if (error) throw error;
-                
-                // le split sert à isoler le nom simple de l'image (ex: "/icons/beehive-1.png"  ->  "beehive-1")
-                map.addImage(url_image.split("/")[2].split(".")[0], image);
-            }
-        );
-    };
-    
-    map.addSource('places', {
+    Promise.all(
+        images.map(img_url => new Promise((resolve, reject) => {
+            map.loadImage(img_url, function (error, res) {
+                map.addImage(img_url.split("/")[2].split(".")[0], res)
+                resolve();
+            })
+        }))
+    )
+    .then(
+        map.addSource('places', {
 
-        // JSON.parse(thisScript.getAttribute('data')) -> voir le commentaire ligne 29/30 pour l'explication
-        'type': 'geojson',
-        'data': JSON.parse(thisScript.getAttribute('data'))
-    });
+            // JSON.parse(thisScript.getAttribute('data')) -> voir le commentaire ligne 29/30 pour l'explication
+            'type': 'geojson',
+            'data': JSON.parse(thisScript.getAttribute('data'))
+        }));
     console.log(thisScript.getAttribute('data'));
-    
+
     // Ici, on ajoute une couche sur openstreet map qui affiche, en plus de la carte déjà existante, les icones sont listées dans la data de 'places'
     map.addLayer({
     'id': 'places',
@@ -68,7 +61,7 @@ map.on('load', () => {
     'icon-allow-overlap': true
     }
     });
-    
+
 
     // Ce qui suit est du copié collé pas parfaitement maitrisé qui sert à pop-up la description quand on clique sur une icone
 
@@ -102,7 +95,6 @@ map.on('load', () => {
     map.on('mouseleave', 'places', () => {
     map.getCanvas().style.cursor = '';
     });
-
 
 });
 

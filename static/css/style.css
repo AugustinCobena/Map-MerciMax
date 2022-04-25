@@ -10,9 +10,7 @@
 }
 
 .searchbar {
-    position: absolute;
-    top: 70px;
-    left: 10px;
+    float : left;
     height: 30px;
     width: 175px;
     background-color: var(--white);
@@ -27,10 +25,15 @@
     background-color: var(--white);
 }
 
+.container {
+    margin : 0 auto;
+    width : 1500px;
+    height : 100%;
+}
+
 #centerText{
-    height: 400px;
-    width: 800px;
-    line-height: 400px;
+    height: 100px;
+    width: 100%;
     text-align: center;
 }
 
