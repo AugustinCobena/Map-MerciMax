@@ -12,17 +12,21 @@ http://127.0.0.1:5000/
 @author: CHRISTIAN
 """
 import os
-import json
 import sqlite3 as sql
 from flask import Flask
-from flask import render_template
-from flask import send_file,send_from_directory
+from flask import request
+from flask import send_file,render_template
 
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods = ['GET','POST'])
 def index():
+    
+    title = request.args.get('title') or ''
+    description = request.args.get('description') or ''
+    icon = request.args.get('icon') or ''
+    formDisplay = request.args.get('formDisplay') or 'none'
 
     # On définit le path pour qu'il mène à la db située dans le même dossier que ce fichier quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -39,6 +43,36 @@ def index():
     con.row_factory = dict_factory
     #-------------------
     cur = con.cursor()
+
+    if request.method == 'POST':
+        # On va chercher les données du formulaire qui a été envoyé par la requête POST
+        markerTitle = request.form.get("markerTitle")
+        markerDescription = request.form.get("markerDescription")
+        markerLongitude = request.form.get("markerLongitude")
+        markerLatitude = request.form.get("markerLatitude")
+        markerIcon = request.form.get("markerIcon")
+
+        print(markerTitle,markerDescription,markerLongitude,markerLatitude,markerIcon)
+
+        # On insère les données dans la base de donnée par une requête SQL
+        cur.execute(
+        '''INSERT INTO "markers" (
+            "description",
+            "icon",
+            "longitude",
+            "latitude",
+            "zone"
+        )
+        VALUES("<strong>
+        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "' + markerIcon + '","' + markerLongitude + '","' + markerLatitude + '", 1)')
+
+        # On confirme la modification de la base de donnée
+
+        # /!\ Si on enlève cette étape, les données seront quand même affichées sur la carte pour cet affichage web uniquement
+        # Les modifications seront annulées lorsqu'on se déconnecte de la base de données seulement (c'est à dire à la fin de cette fonction)
+        # Enlever la ligne suivante peut donc être un bon moyen de faire des tests d'affichage sans modifier la base de données
+        con.commit()
+
 
     cur.execute("select * from markers;")
 
@@ -71,7 +105,7 @@ def index():
     image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
 
-    return render_template('index.html',data = data,icons = image_names)
+    return render_template('index.html',data = data,icons = image_names, title=title, description=description, icon=icon, formDisplay=formDisplay)
 
 
 
@@ -85,19 +119,24 @@ def icon_display(icon):
 
 
 
-@app.route('/scripts/js/<script>')
-def render_script(script):
+@app.route('/js/<script>')
+def send_script(script):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/static/js/' + script)
 
-
+@app.route('/css/<file>')
+def send_css(file):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    return send_file(dir_path + '/static/css/' + file)
 
 @app.route('/favicon.ico')
 def send_icon():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/marx.ico')
 
-
+@app.route('/test_page')
+def test_function():
+    return render_template('test_html.html')
 
 if __name__ == "__main__":
     port = 5000
