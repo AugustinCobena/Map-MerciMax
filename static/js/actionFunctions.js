@@ -40,4 +40,6 @@ function disactivateChooseLocation() {
   coordMarker.remove()
   toggleForm();
   hideOkButton();
+  document.getElementById("chooseLocationButton").innerText = "🗸 Changer l'emplacement"
+  document.getElementById("chooseLocationButton").style.color = "rgb(8, 194, 33)"
 }

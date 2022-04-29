@@ -27,7 +27,7 @@
         <h1 id="title">Les initiatives sociales et solidaires</h1>
     </div>
 
-    <div id="addactorDiv">
+    <div id="addactorDiv"> <!-- Pourquoi des id partout, pourquoi le bouton marche qu'au 2e click -->
         <script src="/js/actionFunctions.js"></script>
         <button class="btn" onclick="toggleForm();">
             <h1 id="addactorText">Ajouter un acteur</h1>
@@ -42,6 +42,7 @@
         <button class="confirmLocation" onclick="disactivateChooseLocation();" style = "display : none;">OK</button>
     </div>
 
+
     <div id="map">
         <div id="globalFormDiv">
             <strong>Ajouter un acteur</strong>
@@ -55,7 +56,7 @@
                     <label for="description">Description :</label>
                     <textarea id="description" name="markerDescription"></textarea>
                 </div>
-                <button onclick="activateChooseLocation();" type="button">Choisir l'emplacement</button>
+                <button id = "chooseLocationButton" onclick="activateChooseLocation();" type="button">Choisir l'emplacement</button>
                 <div>
                     <label for="icon">Icone :</label>
                     <input type="text" id="icon" name="markerIcon">
@@ -68,6 +69,7 @@
             </form>
         </div>
     </div>
+
 
     <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
         il envoie ensuite la page modifiée avec les bonnes variables, qui dépendent donc des arguments d'entrée, au client.-->
