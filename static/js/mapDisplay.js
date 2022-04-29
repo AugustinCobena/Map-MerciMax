@@ -31,7 +31,7 @@ map.on('load', () => {
     var images = JSON.parse(thisScript.getAttribute('img'));
     console.log(images);
 
-
+    // Alors là je comprend vraiment pas comment Promise.all marche mais ca marche, ca charge toutes les images sur mapbox qui peut ensuite les réutiliser pour afficher des icones
     Promise.all(
         images.map(img_url => new Promise((resolve, reject) => {
             map.loadImage(img_url, function (error, res) {

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Map MerciMax</title>
     <link rel="stylesheet" href="/css/style.css">
 
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -23,44 +23,42 @@
 </head>
 
 <body>
+    <script src="/js/actionFunctions.js"></script>
     <div class = "container">
         <h1 id = "centerText">MAP</h1>
         <input class="searchbar" type=" text " name=" recherche " placeholder=" Cherchez un acteur " />
         <div>
-            <script src="/js/actionFunctions.js"></script>
             <button class="btn" onclick="toggleForm();">
                 Ajouter un acteur
             </button>
         </div>
-
-        <div style="display : none;" id="globalFormDiv">
+        <div>
+            <button class="confirmLocation" onclick="disactivateChooseLocation();" style = "display : none;">OK</button>
+        </div>
+        <div style="display :{{formDisplay}};" id="globalFormDiv">
             <form action="/index" method="post">
                 <div>
                     <label for="title">Titre de la fiche:</label>
-                    <input type="text" id="title" name="markerTitle">
+                    <input type="text" id="title" name="markerTitle" value="{{title}}">
                 </div>
                 <div>
                     <label for="description">Description :</label>
-                    <textarea id="description" name="markerDescription"></textarea>
+                    <textarea id="description" name="markerDescription" value="{{description}}"></textarea>
                 </div>
-                <div>
-                    <label for="longitude">Longitude :</label>
-                    <input type="text" id="longitude" name="markerLongitude"></textarea>
-                </div>
-                <div>
-                    <label for="latitude">Latitude :</label>
-                    <input type="text" id="latitude" name="markerLatitude"></textarea>
-                </div>
+                <button onclick="activateChooseLocation();" type="button">Choisir l'emplacement</button>
                 <div>
                     <label for="icon">Icone :</label>
-                    <input type="text" id="icon" name="markerIcon"></textarea>
+                    <input type="text" id="icon" name="markerIcon" value="{{icon}}">
                 </div>
-                <div class="button">
+                <input style = "display : none;" type="text" id="latitude" name="markerLatitude" value="">
+                <input style = "display : none;" type="text" id="longitude" name="markerLongitude" value="">
+                <div>
                     <button type="submit">Envoyer le message</button>
                 </div>
             </form>
         </div>
-    
+
+
         <div id='map'></div>
 
         <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template

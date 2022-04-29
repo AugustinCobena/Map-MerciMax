@@ -23,6 +23,11 @@ app = Flask(__name__)
 @app.route('/index', methods = ['GET','POST'])
 def index():
     
+    title = request.args.get('title') or ''
+    description = request.args.get('description') or ''
+    icon = request.args.get('icon') or ''
+    formDisplay = request.args.get('formDisplay') or 'none'
+
     # On définit le path pour qu'il mène à la db située dans le même dossier que ce fichier quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
     con = sql.connect(dir_path + '/mercimax.db')
@@ -46,6 +51,8 @@ def index():
         markerLongitude = request.form.get("markerLongitude")
         markerLatitude = request.form.get("markerLatitude")
         markerIcon = request.form.get("markerIcon")
+
+        print(markerTitle,markerDescription,markerLongitude,markerLatitude,markerIcon)
 
         # On insère les données dans la base de donnée par une requête SQL
         cur.execute(
@@ -98,7 +105,7 @@ def index():
     image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
 
-    return render_template('index.html',data = data,icons = image_names)
+    return render_template('index.html',data = data,icons = image_names, title=title, description=description, icon=icon, formDisplay=formDisplay)
 
 
 

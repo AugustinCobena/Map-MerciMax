@@ -31,6 +31,18 @@
     height : 100%;
 }
 
+.confirmLocation {
+    display : none;
+}
+
+.redDot {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(167, 17, 17);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
 #centerText{
     height: 100px;
     width: 100%;
