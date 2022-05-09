@@ -32,6 +32,18 @@ map.on('load', () => {
     console.log(images);
 
 
+    // Ce bout de code sert à afficher les icones dans le formulaire qui sert à la création de nouveaux markers. (On en profite ici puisqu'on a accès à la liste des icones ici)
+    htmlListOfIcons = document.createDocumentFragment()
+    for(var i = 0; i < images.length; i++) {
+        newIcon = document.createElement('img')
+        newIcon.src = images[i]
+        htmlListOfIcons.appendChild(newIcon)
+    }
+    console.log(htmlListOfIcons)
+    document.getElementById("iconChoiceDiv").appendChild(htmlListOfIcons)
+    
+
+    // Alors là je comprend vraiment pas comment Promise.all marche mais ca marche, ca charge toutes les images sur mapbox qui peut ensuite les réutiliser pour afficher des icones
     Promise.all(
         images.map(img_url => new Promise((resolve, reject) => {
             map.loadImage(img_url, function (error, res) {

@@ -34,6 +34,30 @@
     right: 2px;
 }
 
+.confirmLocation {
+    display : none;
+    position: absolute;
+    top: 25%;
+    bottom: 70%;
+    left: 60%;
+    right: 35%;
+    z-index: 2;
+}
+
+.redDot {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(167, 17, 17);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+#centerText{
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
 .btn {
     position: relative;
     border: 2px solid rgb(0, 0, 0);
@@ -82,4 +106,53 @@
     background-color: rgba(253, 232, 232, 0.905);
     display: none;
     z-index: 2;
+}
+
+#chooseLocationButton {
+    color :rgb(0, 0, 0)
+}
+
+
+#iconChoiceDiv{
+    position : relative;
+    height : 200px;
+    width : 86%;
+    left : 5%;
+    padding : 2%;
+    background-color: rgba(255, 255, 255, 0.884);
+}
+
+.iconContainer {
+position: relative;
+}
+.iconContainer .iconTextOnHover {
+display: none;
+position: absolute;
+bottom: 5%;
+left: 5%;
+right: 5%;
+background-color: #fff;
+padding: .5em;
+}
+.iconContainer:hover .iconTextOnHover {
+display: block;
+}
+
+#themesDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 22%;
+    bottom: 2%;
+    left: 1%;
+    right: 76%;
+}
+
+#descriptionDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 70%;
+    bottom: 2px;
+    left: 25%;
+    right: 2px;
+    background-color: rgba(253, 232, 232, 0.905);
 }

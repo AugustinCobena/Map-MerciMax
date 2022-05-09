@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Map MerciMax</title>
     <link rel="stylesheet" href="/css/style.css">
 
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -28,6 +28,7 @@
     </div>
 
     <div id="addactorDiv">
+        <!-- Pourquoi des id partout, pourquoi le bouton marche qu'au 2e click -->
         <script src="/js/actionFunctions.js"></script>
         <button class="btn" onclick="toggleForm();">
             <h1 id="addactorText">Ajouter un acteur</h1>
@@ -36,6 +37,46 @@
 
     <div id="searchDiv">
         <input id="searchbar" type="text" name="recherche" placeholder="Cherchez un acteur" />
+    </div>
+
+    <div>
+        <button class="confirmLocation" onclick="disactivateChooseLocation();" style="display : none;">OK</button>
+    </div>
+
+    <div style="overflow:scroll; border:#000000 1px solid;" id="themesDiv">
+        <h1 style="text-align: center" id="themestitle">Thèmes</h1>
+        <nav class="menu">
+            <b>Environnement</b>
+            <ul>
+                <li><a href="#Air">Air</a></li>
+                <li><a href="#Eau">Eau</a></li>
+                <li><a href="#Énergie">Énergie</a></li>
+                <li><a href="#Biodiversité">Biodiversité</a></li>
+                <li><a href="#Transport">Transport</a></li>
+                <li><a href="#Vêtements">Vêtements</a></li>
+                <li><a href="#Matière">Matière</a></li>
+            </ul>
+            <b>Social</b>
+            <ul>
+                <li><a href="#Alimentation">Alimentation</a></li>
+                <li><a href="#Bien-être et partage">Bien-être et partage</a></li>
+                <li><a href="#Éducation">Éducation</a></li>
+                <li><a href="#Citoyenneté">Citoyenneté</a></li>
+                <li><a href="#Solidarité">Solidarité</a></li>
+                <li><a href="#Inclusivité">Inclusivité</a></li>
+            </ul>
+            <b>Économie</b>
+            <ul>
+                <li><a href="#Économie circulaire">Économie circulaire</a></li>
+                <li><a href="#Circuit court">Circuit court</a></li>
+                <li><a href="#Entrepreneuriat social">Entrepreneuriat social</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="descriptionDiv">
+        <h1>Title</h1>
+        <p>Description</p>
     </div>
 
     <div id="map">
@@ -51,24 +92,21 @@
                     <label for="description">Description :</label>
                     <textarea id="description" name="markerDescription"></textarea>
                 </div>
-                <div>
-                    <label for="longitude">Longitude :</label>
-                    <input type="text" id="longitude" name="markerLongitude"></textarea>
-                </div>
-                <div>
-                    <label for="latitude">Latitude :</label>
-                    <input type="text" id="latitude" name="markerLatitude"></textarea>
-                </div>
+                <button id="chooseLocationButton" onclick="activateChooseLocation();" type="button">Choisir
+                    l'emplacement</button>
                 <div>
                     <label for="icon">Icone :</label>
-                    <input type="text" id="icon" name="markerIcon"></textarea>
+                    <input type="text" id="icon" name="markerIcon">
                 </div>
-                <div class="button">
+                <input style="display : none;" type="text" id="latitude" name="markerLatitude" value="">
+                <input style="display : none;" type="text" id="longitude" name="markerLongitude" value="">
+                <div>
                     <button type="submit">Envoyer le message</button>
                 </div>
             </form>
         </div>
     </div>
+
 
     <!--cette syntaxe {{icons|tojson}} dit au serveur flask d'aller chercher la variable icons dans les paramètres passés en arguments lors de l'appel de cette page via render_template
         il envoie ensuite la page modifiée avec les bonnes variables, qui dépendent donc des arguments d'entrée, au client.-->
