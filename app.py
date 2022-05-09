@@ -67,7 +67,7 @@ def index():
         # /!\ Si on enlève cette étape, les données seront quand même affichées sur la carte pour cet affichage web uniquement
         # Les modifications seront annulées lorsqu'on se déconnecte de la base de données seulement (c'est à dire à la fin de cette fonction)
         # Enlever la ligne suivante peut donc être un bon moyen de faire des tests d'affichage sans modifier la base de données
-        # con.commit()
+        con.commit()
 
     cur.execute("select * from markers;")
 
