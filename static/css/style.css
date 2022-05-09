@@ -36,8 +36,12 @@
 
 .confirmLocation {
     display : none;
-    position : absolute;
-    z-index: 3;
+    position: absolute;
+    top: 25%;
+    bottom: 70%;
+    left: 60%;
+    right: 35%;
+    z-index: 2;
 }
 
 .redDot {
@@ -108,6 +112,7 @@
     color :rgb(0, 0, 0)
 }
 
+
 #iconChoiceDiv{
     position : relative;
     height : 200px;
@@ -131,4 +136,23 @@ padding: .5em;
 }
 .iconContainer:hover .iconTextOnHover {
 display: block;
+}
+
+#themesDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 22%;
+    bottom: 2%;
+    left: 1%;
+    right: 76%;
+}
+
+#descriptionDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 70%;
+    bottom: 2px;
+    left: 25%;
+    right: 2px;
+    background-color: rgba(253, 232, 232, 0.905);
 }
