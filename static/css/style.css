@@ -112,6 +112,32 @@
     color :rgb(0, 0, 0)
 }
 
+
+#iconChoiceDiv{
+    position : relative;
+    height : 200px;
+    width : 86%;
+    left : 5%;
+    padding : 2%;
+    background-color: rgba(255, 255, 255, 0.884);
+}
+
+.iconContainer {
+position: relative;
+}
+.iconContainer .iconTextOnHover {
+display: none;
+position: absolute;
+bottom: 5%;
+left: 5%;
+right: 5%;
+background-color: #fff;
+padding: .5em;
+}
+.iconContainer:hover .iconTextOnHover {
+display: block;
+}
+
 #themesDiv {
     position: absolute;
     border: 1px solid rgb(0, 0, 0);

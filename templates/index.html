@@ -92,9 +92,15 @@
                     <textarea id="description" name="markerDescription"></textarea>
                 </div>
                 <button id = "chooseLocationButton" onclick="activateChooseLocation();" type="button">Choisir l'emplacement</button>
-                <div>
-                    <label for="icon">Icone :</label>
-                    <input type="text" id="icon" name="markerIcon">
+                <br>
+                Icone :
+                <div id="iconChoiceDiv">
+                    <div class="iconContainer">
+                        <img src="/icons/ruche.png"/>
+                        <div class="iconTextOnHover">
+                          <p>Here is some content for the tooltip</p>
+                        </div> 
+                      </div>
                 </div>
                 <input style = "display : none;" type="text" id="latitude" name="markerLatitude" value="">
                 <input style = "display : none;" type="text" id="longitude" name="markerLongitude" value="">
