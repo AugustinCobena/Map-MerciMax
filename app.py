@@ -101,7 +101,25 @@ def index():
     image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
 
-    return render_template('index.html', data=data, icons=image_names)
+    # Calcul occurences et scoring
+
+    dict = {}
+    cur.execute("SELECT nom, IDENTIFIANT, coeff FROM initiative")
+    initiatives = cur.fetchall()
+    somme = 0
+    sommecoeff = 0
+    for initiative in initiatives:
+        print(initiative)
+        nom, id, coeff = initiative['nom'], initiative['IDENTIFIANT'], initiative['coeff']
+        cur.execute("SELECT COUNT(*) FROM markers WHERE id_initiative = '%s'" % id)
+        occurence = cur.fetchone()
+        dict[initiative[0]] = occurence
+        somme += initiatives[2]*occurence
+        sommecoeff += initiatives[2]
+    score = somme / sommecoeff
+    dict['score'] = score
+
+    return render_template('index.html', data=data, icons=image_names, dict=dict)
 
 
 @app.route('/icons/<icon>')
