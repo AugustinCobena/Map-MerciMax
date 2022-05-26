@@ -1,16 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 18 13:26:53 2022
-1) installer falsk : 
-pip install flask
-2) to lauch server :
-flask run
-    
-3) then put in your navigator
-http://127.0.0.1:5000/
-    
-@author: CHRISTIAN
-"""
+
 import os
 import sqlite3 as sql
 from flask import Flask
@@ -69,6 +58,7 @@ def index():
         # Enlever la ligne suivante peut donc être un bon moyen de faire des tests d'affichage sans modifier la base de données
         con.commit()
 
+    #------------------------------------------------------ Selection des markers ---------------------------------------------------------------------------------
     cur.execute("select * from markers;")
 
     markers = cur.fetchall()
@@ -100,6 +90,12 @@ def index():
     # On lui donne les icones à charger en plus dans mapbox (les images que l'on veut pouvoir utiliser ensuite pour l'affichage)
     image_names = os.listdir(dir_path + '/icon_folder/')
     image_names = ['/icons/' + image_name for image_name in image_names]
+
+    #------------------------------------------------------ Selection du score ---------------------------------------------------------------------------------
+
+    zone = request.args.get("zone") or "Versailles"
+
+    #cur.execute("select ")
 
     return render_template('index.html', data=data, icons=image_names)
 
