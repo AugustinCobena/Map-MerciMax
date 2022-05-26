@@ -35,9 +35,19 @@ map.on('load', () => {
     // Ce bout de code sert à afficher les icones dans le formulaire qui sert à la création de nouveaux markers. (On en profite ici puisqu'on a accès à la liste des icones ici)
     htmlListOfIcons = document.createDocumentFragment()
     for(var i = 0; i < images.length; i++) {
-        newIcon = document.createElement('img')
-        newIcon.src = images[i]
-        htmlListOfIcons.appendChild(newIcon)
+        newGlobalDiv = document.createElement('div')
+        newGlobalDiv.classList.add("iconContainer")
+            newIcon = document.createElement('img')
+            newIcon.src = images[i]
+            newGlobalDiv.appendChild(newIcon)
+            newTextDiv = document.createElement("div")
+            newTextDiv.classList.add("iconTextOnHover")
+                newText = document.createElement("p")
+                newText.classList.add("iconTextOnHover")
+                newText.innerText = images[i].split("/")[2].split(".")[0]
+                newTextDiv.appendChild(newText)
+            newGlobalDiv.appendChild(newTextDiv)
+        htmlListOfIcons.appendChild(newGlobalDiv)
     }
     console.log(htmlListOfIcons)
     document.getElementById("iconChoiceDiv").appendChild(htmlListOfIcons)
