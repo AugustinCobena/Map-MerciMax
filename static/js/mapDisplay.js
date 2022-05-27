@@ -6,7 +6,7 @@ var thisScript = document.currentScript;
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3NtYXhtYXIiLCJhIjoiY2wxa29rdzAxMDI0YjNkbzIwbnBuMTM5cSJ9.M3oJl_-BpsaC4_ly5O6rHw';
-const monument = [-77.0353, 38.8895]
+zoneLocation = JSON.parse(thisScript.getAttribute('zoneLocation'))
 const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
@@ -14,8 +14,8 @@ const map = new mapboxgl.Map({
     // Dans l'implémentation sur le site, on pourrait avoir une base de donnée des valeurs de center et zoom en fonction des zones auxquelles les Max appartiennent
     // et lorsqu'un Max affiche cette carte et qu'il est connecté sur le site, la carte se centre sur la zone du Max en question.
     
-    center: [2.135063, 48.81302], // starting position
-    zoom: 13 // starting zoom
+    center: [zoneLocation["longitude"], zoneLocation["latitude"]], // starting position
+    zoom: zoneLocation["zoom"] // starting zoom
 });
 
 //-------------------------------------------------------------------------------------------------------------------------------------
@@ -35,9 +35,19 @@ map.on('load', () => {
     // Ce bout de code sert à afficher les icones dans le formulaire qui sert à la création de nouveaux markers. (On en profite ici puisqu'on a accès à la liste des icones ici)
     htmlListOfIcons = document.createDocumentFragment()
     for(var i = 0; i < images.length; i++) {
-        newIcon = document.createElement('img')
-        newIcon.src = images[i]
-        htmlListOfIcons.appendChild(newIcon)
+        newGlobalDiv = document.createElement('div')
+        newGlobalDiv.classList.add("iconContainer")
+            newIcon = document.createElement('img')
+            newIcon.src = images[i]
+            newGlobalDiv.appendChild(newIcon)
+            newTextDiv = document.createElement("div")
+            newTextDiv.classList.add("iconTextOnHover")
+                newText = document.createElement("p")
+                newText.classList.add("iconTextOnHover")
+                newText.innerText = images[i].split("/")[2].split(".")[0]
+                newTextDiv.appendChild(newText)
+            newGlobalDiv.appendChild(newTextDiv)
+        htmlListOfIcons.appendChild(newGlobalDiv)
     }
     console.log(htmlListOfIcons)
     document.getElementById("iconChoiceDiv").appendChild(htmlListOfIcons)
@@ -55,11 +65,11 @@ map.on('load', () => {
     .then(
         map.addSource('places', {
 
-            // JSON.parse(thisScript.getAttribute('data')) -> voir le commentaire ligne 29/30 pour l'explication
+            // JSON.parse(thisScript.getAttribute('markersData')) -> voir le commentaire ligne 29/30 pour l'explication
             'type': 'geojson',
-            'data': JSON.parse(thisScript.getAttribute('data'))
+            'data': JSON.parse(thisScript.getAttribute('markersData'))
         }));
-    console.log(thisScript.getAttribute('data'));
+    console.log(thisScript.getAttribute('markersData'));
 
     // Ici, on ajoute une couche sur openstreet map qui affiche, en plus de la carte déjà existante, les icones sont listées dans la data de 'places'
     map.addLayer({

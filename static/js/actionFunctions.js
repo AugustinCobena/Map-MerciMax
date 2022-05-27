@@ -43,3 +43,10 @@ function disactivateChooseLocation() {
   document.getElementById("chooseLocationButton").innerText = "🗸 Changer l'emplacement"
   document.getElementById("chooseLocationButton").style.color = "rgb(8, 194, 33)"
 }
+
+function changeZone() {
+  zone = document.getElementById("zoneSelect")
+  console.log(zone.options[zone.selectedIndex].value)
+  trueUrl = window.location.href.split("?")[0]
+  window.location.href = trueUrl + "?zone=" + zone.options[zone.selectedIndex].value
+}
