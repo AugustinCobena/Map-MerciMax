@@ -5,6 +5,7 @@ import sqlite3 as sql
 from flask import Flask
 from flask import request
 from flask import send_file, render_template
+from urllib.parse import unquote_plus
 
 app = Flask(__name__)
 
@@ -29,6 +30,13 @@ def index():
     # -------------------
     cur = con.cursor()
 
+    # unquote_plus décode un argument d'url (par exemple un apostrophe est écrit %27 dans une url, cette fonction le retransforme en apostrophe)
+    zone = unquote_plus(request.args.get("zone") or "Versailles")
+    cur.execute('select * from zones where nom="' + zone + '"')
+    zoneInfo = cur.fetchall()[0]
+    zoneId = zoneInfo['id']
+    zoneLocation = {"longitude" : zoneInfo["longitude"],"latitude" : zoneInfo["latitude"],"zoom" : zoneInfo["zoom"]}
+
     if request.method == 'POST':
         # On va chercher les données du formulaire qui a été envoyé par la requête POST
         markerTitle = request.form.get("markerTitle")
@@ -49,8 +57,16 @@ def index():
             "zone"
         )
         VALUES("<strong>
-        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "' + markerIcon + '","' + markerLongitude + '","' + markerLatitude + '", 1)')
+        ''' + markerTitle + '</strong><p>' + markerDescription + '</p>", "' + markerIcon + '","' + markerLongitude + '","' + markerLatitude + '", ' + str(zoneId) + ')')
 
+        # On modifie le score
+        cur.execute("select id,coef from initiative where nom = '" + markerIcon + "'")
+        initiativesModifiées  = cur.fetchall()
+        print(initiativesModifiées)
+        for initiative in initiativesModifiées:
+            cur.execute("update zones set score_" + initiative["id"][:3] + " = score_" + initiative["id"][:3] + " + " + str(initiative["coef"]*10) + " where id = " + str(zoneId))
+            cur.execute("update zones set score_total = score_total + " + str(initiative["coef"]*10) + " where id = " + str(zoneId))
+        
         # On confirme la modification de la base de donnée
 
         # /!\ Si on enlève cette étape, les données seront quand même affichées sur la carte pour cet affichage web uniquement
@@ -81,11 +97,10 @@ def index():
         feature["properties"]["icon"] = marker["icon"]
 
         feature["geometry"] = {"type": "Point"}
-        feature["geometry"]["coordinates"] = [
-            marker["longitude"], marker["latitude"]]
+        feature["geometry"]["coordinates"] = [marker["longitude"], marker["latitude"]]
 
         features.append(feature)
-    data = {"type": "FeatureCollection", "features": features}
+    markersData = {"type": "FeatureCollection", "features": features}
 
     # On lui donne les icones à charger en plus dans mapbox (les images que l'on veut pouvoir utiliser ensuite pour l'affichage)
     image_names = os.listdir(dir_path + '/icon_folder/')
@@ -93,11 +108,16 @@ def index():
 
     #------------------------------------------------------ Selection du score ---------------------------------------------------------------------------------
 
-    zone = request.args.get("zone") or "Versailles"
+    
 
-    #cur.execute("select ")
+    cur.execute('select * from zones where id = ' + str(zoneId))
+    zoneData = cur.fetchall()
+    score_total = zoneData[0]["score_total"]
+    score_env = zoneData[0]["score_env"]
+    score_soc = zoneData[0]["score_soc"]
+    score_eco = zoneData[0]["score_eco"]
 
-    return render_template('index.html', data=data, icons=image_names)
+    return render_template('index.html', markersData=markersData, icons=image_names, score_total=score_total, score_env=score_env, score_soc=score_soc, score_eco=score_eco, zone = zone, zoneLocation = zoneLocation)
 
 
 @app.route('/icons/<icon>')
