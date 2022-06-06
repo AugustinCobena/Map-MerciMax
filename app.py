@@ -4,13 +4,16 @@ import os
 import sqlite3 as sql
 from flask import Flask
 from flask import request
-from flask import send_file, render_template
+from flask import send_file, render_template, redirect
 from urllib.parse import unquote_plus
 
 app = Flask(__name__)
 
 
 @app.route('/')
+def redirige():
+    return redirect("/index")
+
 @app.route('/index', methods=['GET', 'POST'])
 def index():
 
@@ -32,6 +35,7 @@ def index():
 
     # unquote_plus décode un argument d'url (par exemple un apostrophe est écrit %27 dans une url, cette fonction le retransforme en apostrophe)
     zone = unquote_plus(request.args.get("zone") or "Versailles")
+    # On sélectionne ici les informations d'affichage de la zone à sélectionner
     cur.execute('select * from zones where nom="' + zone + '"')
     zoneInfo = cur.fetchall()[0]
     zoneId = zoneInfo['id']
@@ -109,7 +113,7 @@ def index():
     #------------------------------------------------------ Selection du score ---------------------------------------------------------------------------------
 
     
-
+    # Ici, on va chercher les informations du score de la zone sélectionnée en argument d'url
     cur.execute('select * from zones where id = ' + str(zoneId))
     zoneData = cur.fetchall()
     score_total = zoneData[0]["score_total"]
@@ -117,6 +121,7 @@ def index():
     score_soc = zoneData[0]["score_soc"]
     score_eco = zoneData[0]["score_eco"]
 
+    # render_template renvoie la page html sélectionnée après l'avoir modifiée par une méthode type jinja2
     return render_template('index.html', markersData=markersData, icons=image_names, score_total=score_total, score_env=score_env, score_soc=score_soc, score_eco=score_eco, zone = zone, zoneLocation = zoneLocation)
 
 
@@ -131,24 +136,29 @@ def icon_display(icon):
 
 @app.route('/js/<script>')
 def send_script(script):
+    # dir_path est le chemin qui mène au dossier parent, quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/static/js/' + script)
 
 
 @app.route('/css/<file>')
 def send_css(file):
+    # dir_path est le chemin qui mène au dossier parent, quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
     return send_file(dir_path + '/static/css/' + file)
 
 
 @app.route('/favicon.ico')
 def send_icon():
+    # Je sais pas si c'est spécifique à Flask mais lors d'une requête sur ce serveur, il y a automatiquement une requête vers /favicon.ico pour déterminer l'icone en haut sur le navigateur
+    # dir_path est le chemin qui mène au dossier parent, quel que soit l'environnement d'exécution
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    return send_file(dir_path + '/marx.ico')
+    return send_file(dir_path + '/mercimax.ico')
 
 
 @app.route('/test_page')
 def test_function():
+    # cette url sert pour les tests
     return render_template('test_html.html')
 
 

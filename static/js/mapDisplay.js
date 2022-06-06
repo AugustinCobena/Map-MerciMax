@@ -123,15 +123,15 @@ map.on('load', () => {
 
     //-------------------------------------------------------------------------------------------------------------------------------------
 
-// Add the search bar to the map.
+// Affiche la barre de recherche intégrée à OpenStreetMap
 map.addControl(
     new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl
     })
 );
-// Add zoom and rotation controls to the map.
+// Active l'option de zoom/dezoom
 map.addControl(new mapboxgl.NavigationControl());
 
-// Add a fullscreen control to the map.
+// Active l'option de se mettre en plein écran
 map.addControl(new mapboxgl.FullscreenControl());
