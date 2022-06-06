@@ -1,3 +1,5 @@
+/* Fichier Js associé à la page test */
+
 const coordMarker = new mapboxgl.Marker()
 
 function toggleOverlay() {
@@ -8,6 +10,7 @@ function toggleOverlay() {
     else
       overlayDiv.style.display = 'none';
   }
+
 function rediriger() {
   let title = document.getElementById("title").value
   let description = document.getElementById("description").value

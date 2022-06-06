@@ -1,3 +1,5 @@
+/* Bon ce fichier c'est un peu le bordel désolé on savait pas comment organiser un fichier css*/
+
 :root {
     --green: #00FF00;
     --white: #ffffff;
@@ -7,31 +9,6 @@
 * {
     color: var(--black);
     font-family: helvetica;
-}
-
-#titleDiv {
-    position: absolute;
-    margin: 0 auto;
-    border: 1px solid rgb(0, 0, 0);
-    top: 2px;
-    bottom: 87%;
-    left: 2px;
-    right: 25%;
-}
-
-#title {
-    position: relative;
-    line-height: normal;
-    text-align: center;
-}
-
-#addactorDiv {
-    position: absolute;
-    border: 1px solid rgb(0, 0, 0);
-    top: 2px;
-    bottom: 87%;
-    left: 75%;
-    right: 2px;
 }
 
 .confirmLocation {
@@ -58,6 +35,72 @@
     height: 90%;
     width: 90%;
     background-color: var(--white);
+}
+
+.iconContainer {
+position: relative;
+width: 40px;
+height:40px;
+float: left;
+}
+.iconContainer .iconTextOnHover {
+display: none;
+position: absolute;
+bottom: 5%;
+left: 5%;
+right: 5%;
+background-color: transparent;
+padding: .5em;
+color:rgb(255, 0, 0);
+font-weight:bold;
+}
+.iconContainer:hover .iconTextOnHover {
+display: block;
+}
+
+
+#themesDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 22%;
+    bottom: 2%;
+    left: 1%;
+    right: 76%;
+}
+
+#descriptionDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 70%;
+    bottom: 2px;
+    left: 25%;
+    right: 2px;
+    background-color: rgba(253, 232, 232, 0.905);
+}
+
+#titleDiv {
+    position: absolute;
+    margin: 0 auto;
+    border: 1px solid rgb(0, 0, 0);
+    top: 2px;
+    bottom: 87%;
+    left: 2px;
+    right: 25%;
+}
+
+#title {
+    position: relative;
+    line-height: normal;
+    text-align: center;
+}
+
+#addactorDiv {
+    position: absolute;
+    border: 1px solid rgb(0, 0, 0);
+    top: 2px;
+    bottom: 87%;
+    left: 75%;
+    right: 2px;
 }
 
 #searchDiv {
@@ -107,50 +150,9 @@
 
 #iconChoiceDiv{
     position : relative;
-    height : 200px;
+    height : 130px;
     width : 86%;
     left : 5%;
     padding : 2%;
     background-color: rgba(255, 255, 255, 0.884);
-}
-
-.iconContainer {
-position: relative;
-width: 40px;
-height:40px;
-float: left;
-}
-.iconContainer .iconTextOnHover {
-display: none;
-position: absolute;
-bottom: 5%;
-left: 5%;
-right: 5%;
-background-color: transparent;
-padding: .5em;
-color:rgb(255, 0, 0);
-font-weight:bold;
-}
-.iconContainer:hover .iconTextOnHover {
-display: block;
-}
-
-
-#themesDiv {
-    position: absolute;
-    border: 1px solid rgb(0, 0, 0);
-    top: 22%;
-    bottom: 2%;
-    left: 1%;
-    right: 76%;
-}
-
-#descriptionDiv {
-    position: absolute;
-    border: 1px solid rgb(0, 0, 0);
-    top: 70%;
-    bottom: 2px;
-    left: 25%;
-    right: 2px;
-    background-color: rgba(253, 232, 232, 0.905);
 }
