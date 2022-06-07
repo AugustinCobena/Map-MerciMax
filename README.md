@@ -113,13 +113,13 @@ For open source projects, say how it is licensed.
 ## Project status
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
 
-# Carte MerciMax
+# **Carte MerciMax**
 
-## Description
+## **Description**
 
 ---
 
-### Installation
+### **Installation**
 
 Prérequis : Python et ses bibliothèques flask, sqlite3, urllib
 
@@ -141,31 +141,55 @@ après s'être placé dans le bon dossier.
 
 Le serveur web est alors lancé. On peut maintenant s'y connecter localement sur un navigateur à l'adresse choisie, par défault http://127.0.0.1:5000/. Pour s'y connecter depuis un appareil distant, il faudra configurer le pare-feu.
 
-### Fonctionnement du site
+### **Fonctionnement du site**
 
 Le site se présente comme cela :
-![](https://gitlab-student.centralesupelec.fr/mael.jeannot/mercimax/-/blob/main/mercimax.PNG)
 
-### Statut du projet
+![](./mercimax.PNG)
 
----
+On peut voir à gauche le score de la ville actuellement choisie. Par défault, Versailles.
+On peut changer le choix de la ville grâce au menu déroulant.
+Sur la carte, en plus des éléments affichés par OpenStreetMap, sont affichés les acteurs locaux ayant un impact positif au niveau social, environnemental ou économique qui sont présents dans la base de données pour l'instant.
+On peut ajouter un acteur à l'aide du bouton en haut à droite. On demande de choisir l'emplacement, le titre, la description et l'icône correspondante.
 
-### Roadmap
+### **Statut du projet**
 
----
+En développement
 
-### Auteurs
-
----
-
-## Pour administrateur
-
-### Organisation du dossier
+### **Auteurs**
 
 ---
 
-### Organisation de la base de donnée
+## **Pour administrateur**
+
+### **Organisation du dossier**
+
+Le serveur tourne sur le fichier app.py.
+La base de données contient les informations importantes, en particulier toutes les informations concernant les marqueurs.
+Dans le dossier html sont les fichiers html renvoyés lors d'une requête utilisateur. Ils sont eux-mêmes reliés aux fichiers javascript et css des sous-dossiers js et css du dossier static.
+
+Plus particulièrement, lors d'une requête utilisateur GET, le serveur récupère les données de la base et les ajoute dans le fichier index.html avant de le renvoyer.
+Lors d'une requête POST, il récupère la zone actuellement affichée chez l'utilisateur, intègre le marqueur à ajouter dans la base de donnée, puis met à jour le score de la zone correspondante.
+
+Attention, le marqueur est donc associé à la zone qui était sélectionnée quel que soit l'emplacement où il est placé
+Attention le score n'est pas mis à jour lors de modifications administrateur de la base de données (uniquement lors de requêtes utilisateur)
+
+Pour ajouter de nouvelles icônes disponibles pour les marqueurs, il faut les ajouter dans le dossier icon_folder ET mettre à jour la base de données afin de faire correspondre des coefficients de score à cette icône.
+
+### **Organisation de la base de données**
 
 ---
 
+### **Roadmap**
 
+***Améliorations mineures:***
+ - [ ] Choix des icônes lors de l'ajout d'un marqueur par simple clic
+ - [ ] Ajout de nouveaux marqueurs possibles (icônes et coefficients de score)
+ - [ ] Légère couche de couleur sur les villes en fonction de leur score
+
+***Améliorations majeures:***
+ - [ ] Amélioration globale du design
+ - [ ] Choix de la zone par clic sur la carte
+ - [ ] Envoi du serveur uniquement des marqueurs qui sont dans la zone actuellement affichée chez l'utilisateur et non plus de l'ensemble des marqueurs
+ - [ ] Vérification de la validité des requêtes utilisateur avant de les exécuter
+ - [ ] Mise en place d'un système d'authentification
