@@ -121,11 +121,30 @@ If you have run out of energy or time for your project, put a note at the top of
 
 ### Installation
 
----
+Prérequis : Python et ses bibliothèques flask, sqlite3, urllib
+
+Pour utiliser ce projet, il faut tout d'abord télécharger le dossier. Pour cela,
+ - [ ] utiliser la fonctionnalité de téléchargement de gitlab puis décompresser le fichier vers l'emplacement voulu.
+ - [ ] OU démarrer un terminal, se placer dans le dossier voulu, puis exécuter :
+ ```
+git clone https://gitlab-student.centralesupelec.fr/mael.jeannot/mercimax.git
+```
+
+
+
+Ensuite, exécuter le fichier app.py, dans un éditeur de code dans un terminal avec la commande :
+ ```
+python app.py
+```
+après s'être placé dans le bon dossier.
+
+
+Le serveur web est alors lancé. On peut maintenant s'y connecter localement sur un navigateur à l'adresse choisie, par défault http://127.0.0.1:5000/. Pour s'y connecter depuis un appareil distant, il faudra configurer le pare-feu.
 
 ### Fonctionnement du site
 
----
+Le site se présente comme cela :
+![](/mercimax.png)
 
 ### Statut du projet
 
