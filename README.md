@@ -144,7 +144,7 @@ Le serveur web est alors lancé. On peut maintenant s'y connecter localement sur
 ### Fonctionnement du site
 
 Le site se présente comme cela :
-![](/mercimax.png)
+![](https://gitlab-student.centralesupelec.fr/mael.jeannot/mercimax/-/blob/main/mercimax.PNG)
 
 ### Statut du projet
 
