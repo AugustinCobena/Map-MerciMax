@@ -85,7 +85,7 @@
     </div>
 
     <div id="map">
-        <div id="globalFormDiv">
+        <div id="globalFormDiv" style="text-align:center">
             <strong>Ajouter un acteur</strong>
             <form method="post">
                 <div>Informations</div>
@@ -93,22 +93,28 @@
                     <label for="title">Titre de la fiche:</label>
                     <input type="text" id="title" name="markerTitle" placeholder="Titre de la fiche">
                 </div>
+                <br>
                 <div>
                     <label for="description">Description :</label>
                     <textarea id="description" name="markerDescription"></textarea>
                 </div>
-                <button id="chooseLocationButton" onclick="activateChooseLocation();" type="button">Choisir
-                    l'emplacement</button>
                 <br>
-                <label for="icon">Icone :</label>
-                <input type="text" id="icon" name="markerIcon">
-                <div id="iconChoiceDiv">
-
+                <div>
+                    <button id="chooseLocationButton" onclick="activateChooseLocation();" type="button">Choisir
+                        l'emplacement</button>
                 </div>
+                <br>
+                <div>
+                    <label for="icon">Icone :</label>
+                    <input type="text" id="icon" name="markerIcon">
+                </div>
+                <div id="iconChoiceDiv">
+                </div>
+                <br>
                 <input style="display : none;" type="text" id="latitude" name="markerLatitude" value="">
                 <input style="display : none;" type="text" id="longitude" name="markerLongitude" value="">
                 <div>
-                    <button type="submit">Envoyer le message</button>
+                    <button type="submit">Valider</button>
                 </div>
             </form>
         </div>
