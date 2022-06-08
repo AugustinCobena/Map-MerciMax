@@ -131,13 +131,16 @@ Dans la base de données mercimax.db se trouvent quatre tables :
  - [ ] Vérification de la validité des requêtes utilisateur avant de les exécuter
  - [ ] Mise en place d'un système d'authentification
 
-## **Membres du projet et remerciements**
+## **Auteurs**
 
-Notre équipe d'étudiants 1A de CentraleSupélec :
-- Augustin Cobena
-- Bastien Maury
-- Arij Ben Rhouma
-- Martin Mollicone
-- Maël Jeannot
- 
-Merci à notre porteur de projet Nicolas De Cerner et notre mentor Christian Maréchal !
+Porteur de projet, à contacter pour toute question concernant les ambitions du projet, la direction à prendre, la suite du développement:
+Nicolas de Cerner, nicolas@mercimax.fr
+
+Ont participé au développement du projet:
+- Augustin Cobena augustin.cobena@student-cs.fr
+- Bastien Maury bastien.maury@student-cs.fr
+- Arij Ben Rhouma arij.benrhouma@student-cs.fr
+- Martin Mollicone martin.mollicone@student-cs.fr
+- Maël Jeannot mael.jeannot@student-cs.fr
+- Christian Maréchal cmarchal@aol.com
+
