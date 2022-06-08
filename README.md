@@ -3,7 +3,42 @@
 ## **Description du projet**
 Le projet consiste en la mise en place d'une plateforme web qui référence les initiatives solidaires, les "bonnes actions" sur une carte interactive et collaborative. La solidarité et le lien social sont en effet au coeur de l'entreprise MerciMax. Le périmètre du projet s'est finalement étendu pour prendre en compte le développement durable et ses trois piliers : cette plateforme a ainsi pour objectif de référencer les initiatives sociales, environnementales ou économiques d'une ville sur une carte.
  
-Un dispositif de scoring est également mis en place pour attribuer à chaque ville un score qui prend en compte les aspects du développement durable. Chacun de ces trois aspects est divisé en plusieurs sous-thèmes et les différentes initiatives sont alors affectées de coefficients détaillés ci-dessous et qui permettent de calculer le score de la ville.
+Un dispositif de scoring est ainsi mis en place pour attribuer à chaque ville un score qui prend en compte les aspects du développement durable. 
+
+L'interface web est fait en HTML, CSS et JavaScript. On utilise Mapbox (surcouche d'OpenStreetMap) pour afficher la carte.
+Le serveur back utilise le framework python Flask.
+ 
+***
+
+## **Installation**
+Prérequis : Python et ses bibliothèques flask, sqlite3, urllib avec les instructions `pip install flask`, `pip install urllib` et `pip install sqlite3`.
+
+Pour utiliser ce projet, il faut tout d'abord télécharger le dossier. Pour cela,
+ - [ ] utiliser la fonctionnalité de téléchargement de gitlab puis décompresser le fichier vers l'emplacement voulu.
+ - [ ] OU démarrer un terminal, se placer dans le dossier voulu, puis exécuter :
+ ```
+git clone https://gitlab-student.centralesupelec.fr/mael.jeannot/mercimax.git
+```
+Ensuite, exécuter le fichier app.py, dans un éditeur de code dans un terminal avec la commande suivante, après s'être placé dans le bon dossier :
+ ```
+python app.py
+```
+
+Le serveur web est alors lancé. On peut maintenant s'y connecter localement sur un navigateur à l'adresse choisie, par défault http://127.0.0.1:5000/. Pour s'y connecter depuis un appareil distant, il faudra configurer le pare-feu.
+
+## **Fonctionnement du site**
+Le site se présente comme cela :
+
+![](./mercimax.PNG)
+
+On peut voir à gauche le score de la ville actuellement choisie. Par défault, Versailles.
+On peut changer le choix de la ville grâce au menu déroulant.
+Sur la carte, en plus des éléments affichés par OpenStreetMap, sont affichés les acteurs locaux ayant un impact positif au niveau social, environnemental ou économique qui sont présents dans la base de données pour l'instant.
+On peut ajouter un acteur à l'aide du bouton en haut à droite. On demande de choisir l'emplacement, le titre, la description et l'icône correspondante.
+
+## **Détail du score**
+
+Chacun des trois aspects du développement durable est divisé en plusieurs sous-thèmes et les différentes initiatives sont alors affectées de coefficients détaillés ci-dessous et qui permettent de calculer le score de la ville.
  
 **Les initiatives environnementales :**
  
@@ -59,40 +94,6 @@ Un dispositif de scoring est également mis en place pour attribuer à chaque vi
 | Entreprise sociale | Entrepreneuriat social | 1.0 |
 
 
-L'interface web est fait en HTML, CSS et JavaScript. On utilise Mapbox (surcouche d'OpenStreetMap) pour afficher la carte.
-Le serveur back utilise le framework python Flask.
- 
-Une maquette de la plateforme web nous a été fournie par notre porteur de projet Nicolas et est disponible ici : https://xd.adobe.com/view/b0079d9c-c046-467c-8de5-469f5fb330c8-e554/.
-
-
-***
-
-## **Installations**
-Prérequis : Python et ses bibliothèques flask, sqlite3, urllib avec les instructions `pip install flask`, `pip install urllib` et `pip install sqlite3`.
-
-Pour utiliser ce projet, il faut tout d'abord télécharger le dossier. Pour cela,
- - [ ] utiliser la fonctionnalité de téléchargement de gitlab puis décompresser le fichier vers l'emplacement voulu.
- - [ ] OU démarrer un terminal, se placer dans le dossier voulu, puis exécuter :
- ```
-git clone https://gitlab-student.centralesupelec.fr/mael.jeannot/mercimax.git
-```
-Ensuite, exécuter le fichier app.py, dans un éditeur de code dans un terminal avec la commande suivante, après s'être placé dans le bon dossier :
- ```
-python app.py
-```
-
-Le serveur web est alors lancé. On peut maintenant s'y connecter localement sur un navigateur à l'adresse choisie, par défault http://127.0.0.1:5000/. Pour s'y connecter depuis un appareil distant, il faudra configurer le pare-feu.
-
-## **Fonctionnement du site**
-Le site se présente comme cela :
-
-![](./mercimax.PNG)
-
-On peut voir à gauche le score de la ville actuellement choisie. Par défault, Versailles.
-On peut changer le choix de la ville grâce au menu déroulant.
-Sur la carte, en plus des éléments affichés par OpenStreetMap, sont affichés les acteurs locaux ayant un impact positif au niveau social, environnemental ou économique qui sont présents dans la base de données pour l'instant.
-On peut ajouter un acteur à l'aide du bouton en haut à droite. On demande de choisir l'emplacement, le titre, la description et l'icône correspondante.
-
 ## **Statut du projet**
 En développement
 
@@ -119,9 +120,11 @@ Dans la base de données mercimax.db se trouvent quatre tables :
 
 ## **Roadmap**
 
+Maquette simple de l'objectif: https://xd.adobe.com/view/b0079d9c-c046-467c-8de5-469f5fb330c8-e554/
+
 ***Améliorations mineures:***
  - [ ] Choix des icônes lors de l'ajout d'un marqueur par simple clic
- - [ ] Ajout de nouveaux marqueurs possibles (icônes et coefficients de score)
+ - [ ] Ajout de nouveaux marqueurs possibles (icônes et coefficients de score); tout ceux présents dans le tableau ci-dessus ne sont pas encore implémentés
  - [ ] Légère couche de couleur sur les villes en fonction de leur score
 
 ***Améliorations majeures:***
